@@ -1,0 +1,18 @@
+# real source data and anything derived from it -- never commit
+data/
+*.xlsx
+*.xls
+*.xlsm
+*.db
+*.db.wal
+entities.json
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+
+# OS
+.DS_Store

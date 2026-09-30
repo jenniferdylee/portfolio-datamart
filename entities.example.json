@@ -1,0 +1,7 @@
+{
+  "PL - Site A": {"code": "SITE_A", "name": "Site A (fiscal Apr-Mar)"},
+  "PL - Site B": {"code": "SITE_B", "name": "Site B (fiscal Apr-Mar)"},
+  "PL - Site C": {"code": "SITE_C", "name": "Site C (fiscal Apr-Mar)"},
+  "PL - HoldCo": {"code": "HOLDCO", "name": "Holding company (calendar)"},
+  "PL - OpCo":   {"code": "OPCO",   "name": "Operating company (calendar)"}
+}

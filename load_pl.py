@@ -30,21 +30,17 @@ from pathlib import Path
 import duckdb
 import openpyxl
 
-# ---------------------------------------------------------------- config
 
 WORKBOOK = Path("data/sample_workbook.xlsx")
 DB_PATH = Path("pl.db")
-ENTITIES_FILE = Path("entities.json")   # optional, git-ignored
+ENTITIES_FILE = Path("entities.json")   
 
-HEADER_FY_ROW = 3      # sparse year labels, e.g. '2025-2026' or '2026'
-HEADER_MONTH_ROW = 4   # 'Jan', 'Feb', ... 'June', 'July'
+HEADER_FY_ROW = 3      
+HEADER_MONTH_ROW = 4   
 FIRST_DATA_ROW = 5
-COL_ACCOUNT_LOCAL = 1  # column A: account name in the local language
-COL_ACCOUNT_EN = 2     # column B: account name in English
+COL_ACCOUNT_LOCAL = 1  
+COL_ACCOUNT_EN = 2     
 
-# Default mapping matches the synthetic workbook from make_sample_workbook.py.
-# To load a different workbook, put {"sheet name": {"code": ..., "name": ...}}
-# in entities.json (see entities.example.json) or pass --entities.
 DEFAULT_SHEETS = {
     "PL - Site A": {"code": "SITE_A", "name": "Site A (fiscal Apr-Mar)"},
     "PL - Site B": {"code": "SITE_B", "name": "Site B (fiscal Apr-Mar)"},
@@ -59,7 +55,6 @@ MONTHS = {
 }
 
 
-# ---------------------------------------------------------------- helpers
 
 def month_num(label):
     """'June' -> 6, 'Jan' -> 1, anything else -> None."""
@@ -78,7 +73,7 @@ def year_label(label):
     if label is None:
         return None, None
     if isinstance(label, float) and label.is_integer():
-        label = int(label)          # a year typed as a number, read back as 2026.0
+        label = int(label)          
     text = str(label).strip()
     if "-" in text:
         head = text.split("-")[0].strip()
@@ -203,9 +198,6 @@ def load_entities(path):
         with open(path, encoding="utf-8") as f:
             return json.load(f)
     return DEFAULT_SHEETS
-
-
-# ---------------------------------------------------------------- build
 
 def build(workbook, db_path, sheets, check=False, log=print):
     """Load every mapped sheet from `workbook` into a fresh DuckDB file at `db_path`."""

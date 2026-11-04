@@ -31,7 +31,6 @@ MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "June",
 
 LAST_PERIOD = 202607   # months after this exist in the header but are blank
 
-# (sheet, dialect, first period shown, blank leading columns, revenue scale)
 SHEETS = [
     ("PL - Site A", "fiscal",   202501, 1, 4.9e9),   # starts with a Jan-Mar stub
     ("PL - Site B", "fiscal",   202404, 3, 3.2e9),
@@ -40,7 +39,6 @@ SHEETS = [
     ("PL - OpCo",   "calendar", 202401, 4, 2.6e9),
 ]
 
-# row layout, identical on every sheet (local-language label, English label)
 ROWS = [
     ("Ⅰ. 매출액",               " Ⅰ. Revenue"),
     ("  1. 보관매출액",          "  1. Storage revenue"),
@@ -92,7 +90,6 @@ def month_values(rng, period, dialect, scale):
     sga = revenue * rng.uniform(0.08, 0.12)
     ebitda = revenue - cogs - sga
 
-    # annual true-up lands in the fiscal closing month
     if dialect == "fiscal" and period % 100 == 3:
         ebitda -= revenue * rng.uniform(1.2, 1.8)
 
@@ -150,7 +147,7 @@ def build(out=OUT, seed=7):
                     ws.cell(5 + i, col, vals[en.strip()])
             col += 1
             if block_end(p, dialect):
-                ws.cell(4, col, "Total")   # annual total column -- not a month
+                ws.cell(4, col, "Total")   
                 col += 1
 
     Path(out).parent.mkdir(parents=True, exist_ok=True)
